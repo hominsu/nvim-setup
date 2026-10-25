@@ -51,6 +51,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    dependencies = { "saghen/blink.cmp" },
     event = lsp.event,
     config = function()
       for name, config in pairs(lsp.server) do
@@ -79,6 +80,122 @@ return {
     opts = {
       ensure_installed = vim.tbl_keys(lsp.server),
       automatic_enable = vim.tbl_keys(lsp.server),
+    },
+  },
+  {
+    "saghen/blink.cmp",
+    version = "1.*",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      "Kaiser-Yang/blink-cmp-dictionary",
+    },
+    opts = {
+      enabled = function()
+        return vim.bo.filetype ~= "oil" and vim.bo.buftype ~= "prompt" and vim.b.completion ~= false
+      end,
+      keymap = require("config.keymaps").plugins["blink.cmp"],
+      appearance = {
+        nerd_font_variant = "mono",
+      },
+      completion = {
+        menu = { border = "rounded" },
+        accept = {
+          auto_brackets = { enabled = true },
+        },
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 300,
+          window = { border = "rounded" },
+        },
+        list = {
+          selection = { preselect = false, auto_insert = true },
+        },
+        ghost_text = { enabled = false },
+      },
+      fuzzy = {
+        sorts = { "exact", "score", "sort_text" },
+      },
+      signature = {
+        enabled = true,
+        trigger = { show_on_insert = true },
+        window = { border = "rounded" },
+      },
+      sources = {
+        min_keyword_length = 2,
+        default = { "lsp", "path", "snippets", "lazydev", "buffer" },
+        per_filetype = {
+          cpp = { "lsp", "path", "snippets", "buffer" },
+          markdown = { "lsp", "snippets", "path", "buffer", "dictionary" },
+        },
+        providers = {
+          lsp = {
+            name = "LSP",
+            module = "blink.cmp.sources.lsp",
+            fallbacks = {
+              "buffer",
+            },
+            score_offset = 5,
+          },
+          buffer = {
+            name = "Buffer",
+            module = "blink.cmp.sources.buffer",
+            min_keyword_length = 2,
+            score_offset = -5,
+          },
+          snippets = {
+            score_offset = -5,
+            min_keyword_length = 2,
+            opts = {
+              friendly_snippets = true, -- default
+              extended_filetypes = {
+                markdown = { "jekyll" },
+                sh = { "shelldoc" },
+              },
+            },
+          },
+          dictionary = {
+            module = "blink-cmp-dictionary",
+            name = "Dict",
+            min_keyword_length = 1,
+            opts = {},
+            score_offset = 10,
+          },
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
+            score_offset = 0,
+          },
+        },
+      },
+      cmdline = {
+        enabled = true,
+        keymap = { preset = "cmdline" },
+        sources = function()
+          local type = vim.fn.getcmdtype()
+          if type == "/" or type == "?" then
+            return { "buffer" }
+          end
+          if type == ":" or type == "@" then
+            return { "cmdline", "buffer" }
+          end
+          return {}
+        end,
+        completion = {
+          trigger = {},
+          list = {
+            selection = {
+              preselect = true,
+              auto_insert = true,
+            },
+          },
+          menu = {
+            auto_show = function(ctx, _)
+              return ctx.mode == "cmdwin"
+            end,
+          },
+          ghost_text = { enabled = true },
+        },
+      },
     },
   },
 }

@@ -67,6 +67,9 @@ M.plugins = {
   ["oil.nvim"] = {
     { "-", "<cmd>Oil<cr>", desc = "Open Parent Directory (Oil)" },
   },
+  ["blink.cmp"] = {
+    preset = "default",
+  },
 }
 
 function M.load_defaults()
