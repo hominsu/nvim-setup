@@ -70,6 +70,9 @@ M.plugins = {
   ["blink.cmp"] = {
     preset = "default",
   },
+  ["conform.nvim"] = {
+    { "<leader>cf", function() require("conform").format { async = true } end, mode = { "n", "x" }, desc = "Format Code" },
+  },
 }
 
 function M.load_defaults()

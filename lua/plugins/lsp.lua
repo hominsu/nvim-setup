@@ -198,4 +198,20 @@ return {
       },
     },
   },
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = "ConformInfo",
+    keys = require("config.keymaps").plugins["conform.nvim"],
+    opts = {
+      formatters_by_ft = {
+        cpp = { "clang-format" },
+        go = { "gofmt" },
+        lua = { "stylua" },
+        cmake = { "cmake_format" },
+        ["*"] = { "codespell" },
+        ["_"] = { "trim_whitespace" },
+      },
+    },
+  },
 }
