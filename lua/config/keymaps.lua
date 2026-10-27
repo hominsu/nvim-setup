@@ -69,6 +69,17 @@ M.plugins = {
   },
   ["blink.cmp"] = {
     preset = "default",
+    ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+    ["<C-j>"] = { "select_next", "fallback" },
+    ["<C-k>"] = { "select_prev", "fallback" },
+    ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+    ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+    ["<C-u>"] = { "scroll_signature_up", "fallback" },
+    ["<C-d>"] = { "scroll_signature_down", "fallback" },
+    ["<C-e>"] = { "cancel", "fallback" },
+    ["<CR>"] = { "select_and_accept", "fallback" },
+    ["<Tab>"] = { "snippet_forward", "fallback" },
+    ["<S-Tab>"] = { "snippet_backward", "fallback" },
   },
   ["conform.nvim"] = {
     { "<leader>cf", function() require("conform").format { async = true } end, mode = { "n", "x" }, desc = "Format Code" },
