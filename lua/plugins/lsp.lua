@@ -6,6 +6,10 @@ local lsp = {
         "clangd",
         "--background-index",
         "--clang-tidy",
+        "--completion-style=detailed",
+        "--fallback-style=llvm",
+        "--function-arg-placeholders=1",
+        "--header-insertion=iwyu",
       },
     },
     gopls = {
