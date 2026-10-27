@@ -83,7 +83,11 @@ return {
     config = function()
       for name, config in pairs(lsp.server) do
         config.root_markers = vim.list_extend(config.root_markers or {}, vim.lsp.config[name].root_markers or {})
-        config.root_dir = root_dir(name)
+
+        if config.root_dir == nil and vim.lsp.config[name].root_dir == nil then
+          config.root_dir = root_dir(name)
+        end
+
         vim.lsp.config(name, config)
       end
     end,
