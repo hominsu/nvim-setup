@@ -8,6 +8,29 @@ local lsp = {
         "--clang-tidy",
       },
     },
+    gopls = {
+      cmd = { "gopls" },
+      settings = {
+        gopls = {
+          gofumpt = true,
+          staticcheck = true,
+          usePlaceholders = true,
+          analyses = {
+            shadow = true,
+          },
+          hints = {
+            assignVariableTypes = true,
+            compositeLiteralFields = true,
+            compositeLiteralTypes = true,
+            constantValues = true,
+            functionTypeParameters = true,
+            ignoredError = true,
+            parameterNames = true,
+            rangeVariableTypes = true,
+          },
+        },
+      },
+    },
     lua_ls = {
       settings = {
         Lua = {
@@ -206,7 +229,7 @@ return {
     opts = {
       formatters_by_ft = {
         cpp = { "clang-format" },
-        go = { "gofmt" },
+        go = { "gofumpt" },
         lua = { "stylua" },
         cmake = { "cmake_format" },
         ["*"] = { "codespell" },
