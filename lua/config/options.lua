@@ -51,7 +51,6 @@ if vim.g.neovide then
 
   vim.o.guifont = "Maple Mono NF CN:12"
   vim.opt.linespace = 1
-  vim.g.neovide_scale_factor = 1.0
 
   vim.g.neovide_input_ime = false
 
@@ -79,4 +78,23 @@ if vim.g.neovide then
   vim.keymap.set({ "n", "i", "v" }, "<D-s>", save, { desc = "Save" })
   vim.keymap.set("v", "<D-c>", copy, { silent = true, desc = "Copy" })
   vim.keymap.set({ "n", "i", "v", "c", "t" }, "<D-v>", paste, { silent = true, desc = "Paste" })
+
+  local modes = { "n", "i", "v" }
+  local scale = {
+    default = 1.0,
+    min = 0.5,
+    max = 2.0,
+    step = 1.05,
+  }
+
+  vim.g.neovide_scale_factor = vim.g.neovide_scale_factor or scale.default
+
+  local function change_scale(factor)
+    vim.g.neovide_scale_factor = math.max(scale.min, math.min(scale.max, vim.g.neovide_scale_factor * factor))
+  end
+
+  vim.keymap.set(modes, "<D-->", function() change_scale(1 / scale.step) end, { desc = "Decrease Neovide scale" })
+  vim.keymap.set(modes, "<D-+>", function() change_scale(scale.step) end, { desc = "Increase Neovide scale" })
+  vim.keymap.set(modes, "<D-0>", function() vim.g.neovide_scale_factor = scale.default end, { desc = "Reset Neovide scale" })
+  vim.keymap.set("n", "<F11>", function() vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen end, { desc = "Toggle Neovide fullscreen" })
 end
