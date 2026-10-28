@@ -1,6 +1,7 @@
 local lsp = {
   event = { "BufReadPre", "BufNewFile" },
   server = {
+    roslyn_ls = {},
     clangd = {
       cmd = {
         "clangd",
@@ -236,6 +237,7 @@ return {
     keys = require("config.keymaps").plugins["conform.nvim"],
     opts = {
       formatters_by_ft = {
+        cs = { lsp_format = "prefer" },
         cpp = { "clang-format" },
         go = { "gofumpt" },
         lua = { "stylua" },
