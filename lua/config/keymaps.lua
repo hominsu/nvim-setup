@@ -15,8 +15,8 @@ M.defaults = {
     ["<leader>se"] = { "<C-w>=", { desc = "Equalize split sizes" } },
     ["<leader>sx"] = { ":close<Return>", { desc = "Close current split" } },
 
-    ["<C-S-Up>"] = { ":resize -2<Return>", { desc = "Decrease window height" } },
-    ["<C-S-Down>"] = { ":resize +2<Return>", { desc = "Increase window height" } },
+    ["<C-S-Up>"] = { ":resize +2<Return>", { desc = "Increase window height" } },
+    ["<C-S-Down>"] = { ":resize -2<Return>", { desc = "Decrease window height" } },
     ["<C-S-Left>"] = { ":vertical resize -2<Return>", { desc = "Decrease window width" } },
     ["<C-S-Right>"] = { ":vertical resize +2<Return>", { desc = "Increase window width" } },
 
