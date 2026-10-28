@@ -23,6 +23,9 @@ local lsp = {
           analyses = {
             shadow = true,
           },
+          codelenses = {
+            test = true,
+          },
           hints = {
             assignVariableTypes = true,
             compositeLiteralFields = true,
@@ -82,6 +85,9 @@ return {
     dependencies = { "saghen/blink.cmp" },
     event = lsp.event,
     config = function()
+      vim.lsp.inlay_hint.enable(true)
+      vim.lsp.codelens.enable(true)
+
       for name, config in pairs(lsp.server) do
         config.root_markers = vim.list_extend(config.root_markers or {}, vim.lsp.config[name].root_markers or {})
 
