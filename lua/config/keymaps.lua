@@ -40,13 +40,6 @@ M.defaults = {
 }
 
 M.plugins = {
-  ["persistence.nvim"] = {
-    { "<leader>ws", function() require("persistence").save() end, desc = "Save Session" },
-    { "<leader>wr", function() require("persistence").load() end, desc = "Restore Session" },
-    { "<leader>wl", function() require("persistence").load { last = true } end, desc = "Restore Last Session" },
-    { "<leader>ww", function() require("persistence").select() end, desc = "Select Session" },
-    { "<leader>wd", function() require("persistence").stop() end, desc = "Stop Auto Save Session" },
-  },
   ["snacks.nvim"] = {
     -- search
     { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
