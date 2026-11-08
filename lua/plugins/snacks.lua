@@ -8,7 +8,16 @@ return {
     indent = { enabled = true, animate = { enabled = true } },
     notifier = { enabled = true, timeout = 5000 },
     input = { enabled = true },
-    picker = { enabled = true },
+    picker = {
+      enabled = true,
+      sources = {
+        projects = {
+          dev = { "~/workspace" },
+          recent = true,
+          max_depth = 3,
+        },
+      },
+    },
     quickfile = { enabled = true },
   },
   keys = require("config.keymaps").plugins["snacks.nvim"],
