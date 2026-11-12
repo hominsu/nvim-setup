@@ -8,6 +8,11 @@ return {
     indent = { enabled = true, animate = { enabled = true } },
     notifier = { enabled = true, timeout = 5000 },
     input = { enabled = true },
+    words = {
+      enabled = true,
+      debounce = 100,
+      modes = { "n", "i", "c" },
+    },
     picker = {
       enabled = true,
       sources = {
