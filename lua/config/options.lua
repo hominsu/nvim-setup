@@ -49,12 +49,20 @@ vim.opt.winblend = 0
 vim.opt.pumblend = 0
 vim.opt.background = "dark"
 
-if vim.g.neovide then
+local neovide_group = vim.api.nvim_create_augroup("neovide_config", { clear = true })
+local neovide_setup_done = false
+
+local function setup_neovide()
+  if neovide_setup_done or not vim.g.neovide then
+    return false
+  end
+  neovide_setup_done = true
+
   vim.g.neovide_theme = "dark"
   vim.g.neovide_opacity = 1.0
   vim.g.neovide_normal_opacity = 1.0
 
-  vim.o.guifont = "Maple Mono NF CN:12"
+  vim.o.guifont = "Maple Mono NF CN:h15"
   vim.opt.linespace = 1
 
   vim.g.neovide_input_ime = false
@@ -102,4 +110,15 @@ if vim.g.neovide then
   vim.keymap.set(modes, "<D-+>", function() change_scale(scale.step) end, { desc = "Increase Neovide scale" })
   vim.keymap.set(modes, "<D-0>", function() vim.g.neovide_scale_factor = scale.default end, { desc = "Reset Neovide scale" })
   vim.keymap.set("n", "<F11>", function() vim.g.neovide_fullscreen = not vim.g.neovide_fullscreen end, { desc = "Toggle Neovide fullscreen" })
+
+  return true
+end
+
+if not setup_neovide() then
+  vim.api.nvim_create_autocmd("UIEnter", {
+    group = neovide_group,
+    callback = function()
+      setup_neovide()
+    end,
+  })
 end
