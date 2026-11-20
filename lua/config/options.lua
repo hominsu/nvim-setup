@@ -58,6 +58,26 @@ local function setup_neovide()
   end
   neovide_setup_done = true
 
+  if vim.g.neovide_channel_id and not vim.g.clipboard then
+    local function copy(lines)
+      vim.rpcrequest(vim.g.neovide_channel_id, "neovide.set_clipboard", lines, "+")
+    end
+
+    local function paste()
+      return vim.rpcrequest(vim.g.neovide_channel_id, "neovide.get_clipboard", "+")
+    end
+
+    vim.g.clipboard = {
+      name = "neovide",
+      copy = { ["+"] = copy, ["*"] = copy },
+      paste = { ["+"] = paste, ["*"] = paste },
+      cache_enabled = false,
+    }
+
+    vim.g.loaded_clipboard_provider = nil
+    vim.cmd.runtime("autoload/provider/clipboard.vim")
+  end
+
   vim.g.neovide_theme = "dark"
   vim.g.neovide_opacity = 1.0
   vim.g.neovide_normal_opacity = 1.0
@@ -85,12 +105,17 @@ local function setup_neovide()
   end
 
   local function save() vim.cmd.write() end
-  local function copy() vim.cmd [[normal! "+y]] end
   local function paste() vim.api.nvim_paste(vim.fn.getreg "+", true, -1) end
 
+  -- macOS
   vim.keymap.set({ "n", "i", "v" }, "<D-s>", save, { desc = "Save" })
-  vim.keymap.set("v", "<D-c>", copy, { silent = true, desc = "Copy" })
-  vim.keymap.set({ "n", "i", "v", "c", "t" }, "<D-v>", paste, { silent = true, desc = "Paste" })
+  vim.keymap.set("x", "<D-c>", '"+y', { desc = "Copy" })
+  vim.keymap.set({ "n", "i", "v", "c", "t" }, "<D-v>", paste, { desc = "Paste" })
+
+  -- Windows
+  vim.keymap.set({ "n", "i", "v" }, "<C-S-s>", save, { desc = "Save" })
+  vim.keymap.set("x", "<C-S-c>", '"+y', { desc = "Copy" })
+  vim.keymap.set({ "n", "i", "v", "c", "t" }, "<C-S-v>", paste, { desc = "Paste" })
 
   local modes = { "n", "i", "v" }
   local scale = {
