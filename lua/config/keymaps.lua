@@ -46,6 +46,7 @@ M.plugins = {
     { "<leader>fs", function() Snacks.picker.grep() end, desc = "Grep Text" },
     { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent Files" },
     { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Find Buffers" },
+    { "<leader>fy", function() Snacks.picker.registers() end, desc = "Find Registers" },
     { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
     { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Find Files" },
     -- lsp
