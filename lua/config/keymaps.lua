@@ -62,8 +62,10 @@ M.plugins = {
     { "<leader>hs", function() Snacks.notifier.show_history() end, desc = "Notification History" },
     { "<leader>nd", function() Snacks.notifier.hide() end, desc = "Dismiss All Notifications" },
     { "<leader>tt", function() Snacks.terminal(nil, { count = 1, win = { position = "float", border = "rounded" } }) end, desc = "Toggle Terminal (Float)" },
-    { "<leader>th", function() Snacks.terminal(nil, { count = 2, win = { position = "bottom" } }) end, desc = "Toggle Terminal (Bottom)" },
-    { "<leader>tv", function() Snacks.terminal(nil, { count = 3, win = { position = "right" } }) end, desc = "Toggle Terminal (Right)" },
+    { "<leader>tj", function() Snacks.terminal(nil, { count = 2, win = { position = "bottom" } }) end, desc = "Toggle Terminal (Bottom)" },
+    { "<leader>tk", function() Snacks.terminal(nil, { count = 3, win = { position = "top" } }) end, desc = "Toggle Terminal (Top)" },
+    { "<leader>th", function() Snacks.terminal(nil, { count = 4, win = { position = "left" } }) end, desc = "Toggle Terminal (Left)" },
+    { "<leader>tl", function() Snacks.terminal(nil, { count = 5, win = { position = "right" } }) end, desc = "Toggle Terminal (Right)" },
     { "<leader>z", function() Snacks.zen() end, desc = "Toggle Zen Mode" },
   },
   ["oil.nvim"] = {
